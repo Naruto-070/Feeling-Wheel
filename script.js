@@ -2,7 +2,6 @@ const svg = document.getElementById("feeling-wheel");
 const centerLabel = document.getElementById("center-label");
 const radiusSteps = [60, 130, 200];
 const cx = 300, cy = 300;
-let selectedEmotion = null; // Store selected emotion
 
 function polarToCartesian(cx, cy, r, angle) {
   return [
@@ -35,11 +34,17 @@ function drawArc(cx, cy, r1, r2, startAngle, endAngle, color, label, isFinal = f
 
   path.addEventListener("click", () => {
     if (isFinal) {
-      // Final emotion selected, change the center label to a button
-      centerLabel.innerHTML = `<button onclick="sendEmail('${label}')">Send '${label}' Feeling</button>`;
+      // Show final emotion selected with a button and a back option
+      centerLabel.innerHTML = `
+        <div style="text-align: center;">
+          <button onclick='sendEmail(${JSON.stringify(label)})'>Send "${label}" Feeling</button>
+          <br/><br/>
+          <button onclick='drawWheel(feelingWheelData)'>⬅️ Go Back</button>
+        </div>
+      `;
       centerLabel.style.backgroundColor = color;
     } else {
-      // Core emotion selected, show message to choose further
+      // Core or primary emotion selected
       centerLabel.innerText = "Heyo Love, choose further Mwaah <3";
       centerLabel.style.backgroundColor = color;
     }
@@ -74,6 +79,9 @@ function drawArc(cx, cy, r1, r2, startAngle, endAngle, color, label, isFinal = f
 
 function drawWheel(data) {
   svg.innerHTML = "";
+  centerLabel.innerText = "Feelings";
+  centerLabel.style.backgroundColor = "white";
+
   let totalCore = data.length;
   let startAngle = 0;
 
@@ -95,7 +103,7 @@ function drawWheel(data) {
         const secAngle = primaryAngle / primary.children.length;
         const secEnd = secStart + secAngle;
 
-        drawArc(cx, cy, radiusSteps[1], radiusSteps[2], secStart, secEnd, section.color, sec, true); // Mark this as final layer
+        drawArc(cx, cy, radiusSteps[1], radiusSteps[2], secStart, secEnd, section.color, sec, true);
 
         secStart = secEnd;
       });
