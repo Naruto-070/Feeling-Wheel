@@ -27,6 +27,13 @@ h1 {
   height: 90vw;
   max-width: 600px;
   max-height: 600px;
+  position: relative;
+  border-radius: 50%;
+  box-shadow: 0 0 20px rgba(255, 182, 193, 0.3);
+  background: radial-gradient(circle, #ffffffaa 0%, #e0f7fa 100%);
+  animation: scaleIn 0.8s ease;
+}
+
 }
 #feeling-wheel {
   width: 100%;
@@ -38,26 +45,22 @@ h1 {
   transform: scale(1.01) rotate(1deg);
 }
 
-#center-label {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 140px;
-  height: 140px;
-  background-color: white;
+#center-label button {
+  background-color: #ff69b4;
+  color: white;
+  border: none;
+  padding: 15px;
+  font-size: 1rem;
+  cursor: pointer;
   border-radius: 50%;
-  border: 4px dashed #ffb6c1;
-  transform: translate(-50%, -50%);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 1.1rem;
-  font-weight: bold;
+  width: 120px;
+  height: 120px;
   text-align: center;
+  line-height: 1.2;
   box-shadow: 0 6px 20px rgba(255, 182, 193, 0.6);
-  transition: background-color 0.4s ease, transform 0.3s ease;
-  z-index: 10;
+  transition: background-color 0.3s ease, transform 0.3s ease;
 }
+
 
 #center-label:hover {
   transform: translate(-50%, -50%) scale(1.05);
