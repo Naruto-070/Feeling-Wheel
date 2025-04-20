@@ -121,4 +121,5 @@ function resetCenter() {
   centerLabel.innerText = "Feelings";
   centerLabel.style.backgroundColor = "white";
 }
+
 drawWheel(feelingWheelData);
