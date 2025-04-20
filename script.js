@@ -9,6 +9,7 @@ function polarToCartesian(cx, cy, r, angle) {
     cy + r * Math.sin(angle)
   ];
 }
+
 function drawArc(cx, cy, r1, r2, startAngle, endAngle, color, label, isFinal = false) {
   const [x1, y1] = polarToCartesian(cx, cy, r1, startAngle);
   const [x2, y2] = polarToCartesian(cx, cy, r2, startAngle);
@@ -33,8 +34,8 @@ function drawArc(cx, cy, r1, r2, startAngle, endAngle, color, label, isFinal = f
 
   path.addEventListener("click", () => {
     if (isFinal) {
-      sendEmail(label); // 👈 directly send email
-      resetCenter();    // 👈 and reset after sending
+      sendEmail(label);      // Send email automatically
+      resetCenter();         // Reset label to "Feelings"
     } else {
       centerLabel.innerText = "Heyo Love, choose further Mwaah <3";
       centerLabel.style.backgroundColor = color;
@@ -53,6 +54,7 @@ function drawArc(cx, cy, r1, r2, startAngle, endAngle, color, label, isFinal = f
 
   svg.appendChild(path);
 
+  // Add emotion label text
   const midAngle = (startAngle + endAngle) / 2;
   const [tx, ty] = polarToCartesian(cx, cy, (r1 + r2) / 2, midAngle);
   const text = document.createElementNS("http://www.w3.org/2000/svg", "text");
@@ -63,26 +65,6 @@ function drawArc(cx, cy, r1, r2, startAngle, endAngle, color, label, isFinal = f
   text.setAttribute("font-size", "11");
   text.setAttribute("font-weight", "bold");
   text.setAttribute("fill", "#444");
-  text.style.userSelect = "none";
-  text.style.pointerEvents = "none";
-  text.textContent = label;
-  svg.appendChild(text);
-}
-
-
-  const midAngle = (startAngle + endAngle) / 2;
-  const [tx, ty] = polarToCartesian(cx, cy, (r1 + r2) / 2, midAngle);
-  const text = document.createElementNS("http://www.w3.org/2000/svg", "text");
-  text.setAttribute("x", tx);
-  text.setAttribute("y", ty);
-  text.setAttribute("text-anchor", "middle");
-  text.setAttribute("alignment-baseline", "middle");
-
-  // 
-  text.setAttribute("font-size", "11");
-  text.setAttribute("font-weight", "bold");
-  text.setAttribute("fill", "#444");
-
   text.style.userSelect = "none";
   text.style.pointerEvents = "none";
   text.textContent = label;
@@ -124,7 +106,7 @@ function drawWheel(data) {
     startAngle = endCore;
   });
 
-  resetCenter(); 
+  resetCenter(); // Initial reset
 }
 
 function sendEmail(feeling) {
