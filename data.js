@@ -4,52 +4,40 @@ const feelingWheelData = [
     color: "#FFD700",
     children: [
       {
-        primary: "Content",
-        children: ["Peaceful", "Satisfied", "Fulfilled"]
+        primary: "Joyful",
+        children: ["Playful", "Content", "Proud"]
       },
       {
-        primary: "Playful",
-        children: ["Cheeky", "Silly", "Giddy"]
-      },
-      {
-        primary: "Proud",
-        children: ["Confident", "Successful", "Important"]
+        primary: "Optimistic",
+        children: ["Hopeful", "Inspired", "Excited"]
       }
     ]
   },
   {
     core: "Sad",
-    color: "#87CEFA",
+    color: "#87CEEB",
     children: [
       {
         primary: "Lonely",
         children: ["Isolated", "Abandoned", "Ignored"]
       },
       {
-        primary: "Guilty",
-        children: ["Ashamed", "Regretful", "Embarrassed"]
-      },
-      {
-        primary: "Depressed",
-        children: ["Hopeless", "Empty", "Sad"]
+        primary: "Down",
+        children: ["Guilty", "Ashamed", "Depressed"]
       }
     ]
   },
   {
     core: "Angry",
-    color: "#FF6347",
+    color: "#FF6F61",
     children: [
       {
         primary: "Frustrated",
-        children: ["Annoyed", "Agitated", "Impatient"]
+        children: ["Annoyed", "Agitated", "Bitter"]
       },
       {
-        primary: "Jealous",
-        children: ["Envious", "Resentful", "Suspicious"]
-      },
-      {
-        primary: "Hurt",
-        children: ["Betrayed", "Offended", "Devastated"]
+        primary: "Threatened",
+        children: ["Jealous", "Resentful", "Defensive"]
       }
     ]
   }
