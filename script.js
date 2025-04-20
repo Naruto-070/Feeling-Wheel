@@ -18,14 +18,14 @@ function drawArc(cx, cy, r1, r2, startAngle, endAngle, color, label, isFinal = f
   const largeArc = endAngle - startAngle > Math.PI ? 1 : 0;
 
   const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
-  path.setAttribute("d", `
+  path.setAttribute("d", 
     M ${x1} ${y1}
     L ${x2} ${y2}
     A ${r2} ${r2} 0 ${largeArc} 1 ${x3} ${y3}
     L ${x4} ${y4}
     A ${r1} ${r1} 0 ${largeArc} 0 ${x1} ${y1}
     Z
-  `);
+  );
   path.setAttribute("fill", color);
   path.setAttribute("stroke", "#fff");
   path.setAttribute("stroke-width", "1");
@@ -34,8 +34,13 @@ function drawArc(cx, cy, r1, r2, startAngle, endAngle, color, label, isFinal = f
 
   path.addEventListener("click", () => {
     if (isFinal) {
-      sendEmail(label);      // Send email automatically
-      resetCenter();         // Reset label to "Feelings"
+      centerLabel.innerHTML = 
+        <div style="display: flex; flex-direction: column; gap: 10px; align-items: center;">
+          <button onclick='sendEmail(${JSON.stringify(label)})'>Send "${label}" Feeling</button>
+          <button onclick='resetCenter()'>⬅️ Go Back</button>
+        </div>
+      ;
+      centerLabel.style.backgroundColor = color;
     } else {
       centerLabel.innerText = "Heyo Love, choose further Mwaah <3";
       centerLabel.style.backgroundColor = color;
@@ -54,7 +59,6 @@ function drawArc(cx, cy, r1, r2, startAngle, endAngle, color, label, isFinal = f
 
   svg.appendChild(path);
 
-  // Add emotion label text
   const midAngle = (startAngle + endAngle) / 2;
   const [tx, ty] = polarToCartesian(cx, cy, (r1 + r2) / 2, midAngle);
   const text = document.createElementNS("http://www.w3.org/2000/svg", "text");
@@ -62,9 +66,8 @@ function drawArc(cx, cy, r1, r2, startAngle, endAngle, color, label, isFinal = f
   text.setAttribute("y", ty);
   text.setAttribute("text-anchor", "middle");
   text.setAttribute("alignment-baseline", "middle");
-  text.setAttribute("font-size", "11");
-  text.setAttribute("font-weight", "bold");
-  text.setAttribute("fill", "#444");
+  text.setAttribute("font-size", "9");
+  text.setAttribute("fill", "#333");
   text.style.userSelect = "none";
   text.style.pointerEvents = "none";
   text.textContent = label;
@@ -106,17 +109,16 @@ function drawWheel(data) {
     startAngle = endCore;
   });
 
-  resetCenter(); // Initial reset
+  resetCenter(); // Reset center label content
 }
 
 function sendEmail(feeling) {
-  const body = `Kitty Divi is feeling ${feeling}`;
-  window.location.href = `mailto:shourya3123@gmail.com?subject=Feeling Wheel&body=${encodeURIComponent(body)}`;
+  const body = Kitty Divi is feeling ${feeling};
+  window.location.href = mailto:shourya3123@gmail.com?subject=Feeling Wheel&body=${encodeURIComponent(body)};
 }
 
 function resetCenter() {
   centerLabel.innerText = "Feelings";
   centerLabel.style.backgroundColor = "white";
 }
-
 drawWheel(feelingWheelData);
