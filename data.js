@@ -1,43 +1,55 @@
 const feelingWheelData = [
   {
     core: "Happy",
-    color: "#FFD700",
+    color: "#FFEB3B",
     children: [
       {
-        primary: "Joyful",
-        children: ["Playful", "Content", "Proud"]
+        primary: "Content",
+        children: ["Peaceful", "Satisfied", "Fulfilled"]
       },
       {
-        primary: "Optimistic",
-        children: ["Hopeful", "Inspired", "Excited"]
+        primary: "Playful",
+        children: ["Silly", "Cheeky", "Giddy"]
+      },
+      {
+        primary: "Proud",
+        children: ["Confident", "Successful", "Important"]
       }
     ]
   },
   {
     core: "Sad",
-    color: "#87CEEB",
+    color: "#03A9F4",
     children: [
       {
         primary: "Lonely",
-        children: ["Isolated", "Abandoned", "Ignored"]
+        children: ["Isolated", "Ignored", "Abandoned"]
       },
       {
-        primary: "Down",
-        children: ["Guilty", "Ashamed", "Depressed"]
+        primary: "Guilty",
+        children: ["Ashamed", "Regretful", "Embarrassed"]
+      },
+      {
+        primary: "Depressed",
+        children: ["Hopeless", "Empty", "Sad"]
       }
     ]
   },
   {
     core: "Angry",
-    color: "#FF6F61",
+    color: "#FF5722",
     children: [
       {
         primary: "Frustrated",
-        children: ["Annoyed", "Agitated", "Bitter"]
+        children: ["Agitated", "Annoyed", "Impatient"]
       },
       {
-        primary: "Threatened",
-        children: ["Jealous", "Resentful", "Defensive"]
+        primary: "Jealous",
+        children: ["Envious", "Resentful", "Suspicious"]
+      },
+      {
+        primary: "Hurt",
+        children: ["Offended", "Betrayed", "Devastated"]
       }
     ]
   }
