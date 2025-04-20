@@ -33,13 +33,8 @@ function drawArc(cx, cy, r1, r2, startAngle, endAngle, color, label, isFinal = f
 
   path.addEventListener("click", () => {
     if (isFinal) {
-      centerLabel.innerHTML = `
-        <div style="display: flex; flex-direction: column; gap: 10px; align-items: center;">
-          <button onclick='sendEmail(${JSON.stringify(label)})'>Send "${label}" Feeling</button>
-          <button onclick='resetCenter()'>⬅️ Go Back</button>
-        </div>
-      `;
-      centerLabel.style.backgroundColor = color;
+      sendEmail(label); // 👈 directly send email
+      resetCenter();    // 👈 and reset after sending
     } else {
       centerLabel.innerText = "Heyo Love, choose further Mwaah <3";
       centerLabel.style.backgroundColor = color;
@@ -57,6 +52,23 @@ function drawArc(cx, cy, r1, r2, startAngle, endAngle, color, label, isFinal = f
   });
 
   svg.appendChild(path);
+
+  const midAngle = (startAngle + endAngle) / 2;
+  const [tx, ty] = polarToCartesian(cx, cy, (r1 + r2) / 2, midAngle);
+  const text = document.createElementNS("http://www.w3.org/2000/svg", "text");
+  text.setAttribute("x", tx);
+  text.setAttribute("y", ty);
+  text.setAttribute("text-anchor", "middle");
+  text.setAttribute("alignment-baseline", "middle");
+  text.setAttribute("font-size", "11");
+  text.setAttribute("font-weight", "bold");
+  text.setAttribute("fill", "#444");
+  text.style.userSelect = "none";
+  text.style.pointerEvents = "none";
+  text.textContent = label;
+  svg.appendChild(text);
+}
+
 
   const midAngle = (startAngle + endAngle) / 2;
   const [tx, ty] = polarToCartesian(cx, cy, (r1 + r2) / 2, midAngle);
