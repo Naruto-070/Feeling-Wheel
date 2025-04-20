@@ -23,7 +23,7 @@ h1 {
 }
 
 .wheel-container {
-  position: relative;
+  position: relative; /* FIXED */
   width: 600px;
   height: 600px;
   animation: scaleIn 1.5s ease-in-out;
@@ -57,6 +57,7 @@ h1 {
   text-align: center;
   box-shadow: 0 6px 20px rgba(255, 182, 193, 0.6);
   transition: background-color 0.4s ease, transform 0.3s ease;
+  z-index: 10;
 }
 
 #center-label:hover {
