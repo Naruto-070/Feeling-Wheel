@@ -34,17 +34,14 @@ function drawArc(cx, cy, r1, r2, startAngle, endAngle, color, label, isFinal = f
 
   path.addEventListener("click", () => {
     if (isFinal) {
-      // Show final emotion selected with a button and a back option
       centerLabel.innerHTML = `
-        <div style="text-align: center;">
+        <div style="display: flex; flex-direction: column; gap: 10px; align-items: center;">
           <button onclick='sendEmail(${JSON.stringify(label)})'>Send "${label}" Feeling</button>
-          <br/><br/>
-          <button onclick='drawWheel(feelingWheelData)'>⬅️ Go Back</button>
+          <button onclick='resetCenter()'>⬅️ Go Back</button>
         </div>
       `;
       centerLabel.style.backgroundColor = color;
     } else {
-      // Core or primary emotion selected
       centerLabel.innerText = "Heyo Love, choose further Mwaah <3";
       centerLabel.style.backgroundColor = color;
     }
@@ -69,7 +66,7 @@ function drawArc(cx, cy, r1, r2, startAngle, endAngle, color, label, isFinal = f
   text.setAttribute("y", ty);
   text.setAttribute("text-anchor", "middle");
   text.setAttribute("alignment-baseline", "middle");
-  text.setAttribute("font-size", "10");
+  text.setAttribute("font-size", "9");
   text.setAttribute("fill", "#333");
   text.style.userSelect = "none";
   text.style.pointerEvents = "none";
@@ -79,8 +76,6 @@ function drawArc(cx, cy, r1, r2, startAngle, endAngle, color, label, isFinal = f
 
 function drawWheel(data) {
   svg.innerHTML = "";
-  centerLabel.innerText = "Feelings";
-  centerLabel.style.backgroundColor = "white";
 
   let totalCore = data.length;
   let startAngle = 0;
@@ -113,11 +108,18 @@ function drawWheel(data) {
 
     startAngle = endCore;
   });
+
+  resetCenter(); // Reset center label content
 }
 
 function sendEmail(feeling) {
-  const emailBody = `Kitty Divi is feeling ${feeling}`;
-  window.location.href = `mailto:shourya3123@gmail.com?subject=Feeling Wheel&body=${encodeURIComponent(emailBody)}`;
+  const body = `Kitty Divi is feeling ${feeling}`;
+  window.location.href = `mailto:shourya3123@gmail.com?subject=Feeling Wheel&body=${encodeURIComponent(body)}`;
+}
+
+function resetCenter() {
+  centerLabel.innerText = "Feelings";
+  centerLabel.style.backgroundColor = "white";
 }
 
 drawWheel(feelingWheelData);
