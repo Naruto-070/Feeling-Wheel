@@ -1,3 +1,4 @@
+/* Base styling */
 body {
   margin: 0;
   padding: 0;
@@ -9,6 +10,7 @@ body {
   align-items: center;
   justify-content: flex-start;
   height: 100vh;
+  overflow-x: hidden;
 }
 
 h1 {
@@ -18,17 +20,24 @@ h1 {
   text-shadow: 1px 1px 2px #ffcce6;
 }
 
+/* Wheel container */
 .wheel-container {
   position: relative;
   width: 600px;
   height: 600px;
+  animation: popIn 1s ease;
 }
 
+/* SVG wheel */
 #feeling-wheel {
   display: block;
   margin: 0 auto;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.4s ease;
 }
 
+/* Center emotion label */
 #center-label {
   position: absolute;
   top: 50%;
@@ -46,4 +55,64 @@ h1 {
   text-align: center;
   padding: 10px;
   font-size: 1rem;
+  box-shadow: 0 0 20px rgba(255, 182, 193, 0.4);
+  cursor: pointer;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+#center-label:hover {
+  transform: translate(-50%, -50%) scale(1.05);
+  background-color: #fff0f5;
+}
+
+/* Segment styles */
+path {
+  transition: transform 0.3s ease, fill 0.3s ease, opacity 0.4s ease;
+  cursor: pointer;
+}
+
+path:hover {
+  transform: scale(1.03);
+  filter: brightness(1.1);
+}
+
+/* Tooltip for emotion labels */
+.tooltip {
+  position: absolute;
+  background: #fff6f9;
+  border: 1px solid #ff8ccf;
+  padding: 6px 12px;
+  border-radius: 10px;
+  color: #ff3592;
+  font-size: 14px;
+  pointer-events: none;
+  white-space: nowrap;
+  box-shadow: 0 0 10px rgba(255, 140, 207, 0.2);
+  z-index: 999;
+}
+
+/* Animations */
+@keyframes popIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Responsive wheel */
+@media (max-width: 700px) {
+  .wheel-container {
+    width: 90vw;
+    height: 90vw;
+  }
+
+  #center-label {
+    width: 90px;
+    height: 90px;
+    font-size: 0.9rem;
+  }
 }
