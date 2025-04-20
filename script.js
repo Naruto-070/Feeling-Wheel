@@ -1,6 +1,6 @@
 const svg = document.getElementById("feeling-wheel");
 const centerLabel = document.getElementById("center-label");
-const radiusSteps = [60, 130, 200]; // Core, Primary, Secondary
+const radiusSteps = [60, 130, 200];
 const cx = 300, cy = 300;
 
 function polarToCartesian(cx, cy, r, angle) {
@@ -31,32 +31,21 @@ function drawArc(cx, cy, r1, r2, startAngle, endAngle, color, label) {
   path.setAttribute("stroke", "#fff");
   path.setAttribute("stroke-width", "1");
   path.style.cursor = "pointer";
-  path.style.transition = "transform 0.3s ease, opacity 0.3s ease, filter 0.3s ease";
-
+  path.style.transition = "transform 0.3s ease, opacity 0.3s ease";
   path.addEventListener("click", () => {
     centerLabel.innerText = label;
     centerLabel.style.backgroundColor = color;
-    centerLabel.style.transform = "translate(-50%, -50%) scale(1.2)";
-    setTimeout(() => {
-      centerLabel.style.transform = "translate(-50%, -50%) scale(1)";
-    }, 200);
   });
-
   path.addEventListener("mouseover", () => {
     path.style.transform = "scale(1.05)";
-    path.style.opacity = "0.95";
-    path.style.filter = "brightness(1.1)";
+    path.style.opacity = "0.9";
   });
-
   path.addEventListener("mouseout", () => {
     path.style.transform = "scale(1)";
     path.style.opacity = "1";
-    path.style.filter = "none";
   });
-
   svg.appendChild(path);
 
-  // Add label text
   const midAngle = (startAngle + endAngle) / 2;
   const [tx, ty] = polarToCartesian(cx, cy, (r1 + r2) / 2, midAngle);
   const text = document.createElementNS("http://www.w3.org/2000/svg", "text");
@@ -100,7 +89,6 @@ function drawWheel(data) {
         const secEnd = secStart + secAngle;
 
         drawArc(cx, cy, radiusSteps[1], radiusSteps[2], secStart, secEnd, section.color, sec);
-
         secStart = secEnd;
       });
 
