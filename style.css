@@ -1,57 +1,46 @@
 body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: #f4f4f4;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-  }
-  .wheel-container {
+  margin: 0;
+  font-family: 'Comic Sans MS', cursive, sans-serif;
+  background: linear-gradient(to bottom, #fff1eb, #ace0f9);
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.wrapper {
   position: relative;
   width: 500px;
   height: 500px;
-  margin: auto;
 }
 
 #feeling-wheel {
-  display: block;
-  margin: auto;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
-.center-emotion {
+#center {
   position: absolute;
-  width: 120px;
-  height: 120px;
-  background: #fff9f0;
-  border-radius: 50%;
   top: 50%;
   left: 50%;
+  width: 120px;
+  height: 120px;
+  background: white;
+  border-radius: 50%;
   transform: translate(-50%, -50%);
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 1.2rem;
   font-weight: bold;
+  font-size: 1rem;
+  text-align: center;
   cursor: pointer;
-  border: 3px dashed #ffb6b6;
+  border: 5px dashed #f99ac9;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  transition: 0.3s ease;
 }
 
-  .segment {
-    position: absolute;
-    width: 100px;
-    height: 100px;
-    background-color: #ddd;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    transform-origin: center;
-    transition: transform 0.3s ease;
-  }
-  
-  .segment:hover {
-    transform: scale(1.1);
-  }
-  
+#center:hover {
+  transform: translate(-50%, -50%) scale(1.05);
+}
