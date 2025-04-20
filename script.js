@@ -31,20 +31,27 @@ function drawArc(cx, cy, r1, r2, startAngle, endAngle, color, label) {
   path.setAttribute("stroke", "#fff");
   path.setAttribute("stroke-width", "1");
   path.style.cursor = "pointer";
-  path.style.transition = "transform 0.3s ease, opacity 0.3s ease";
+  path.style.transition = "transform 0.3s ease, opacity 0.3s ease, filter 0.3s ease";
+
   path.addEventListener("click", () => {
     centerLabel.innerText = label;
     centerLabel.style.backgroundColor = color;
+    centerLabel.style.transform = "translate(-50%, -50%) scale(1.2)";
+    setTimeout(() => {
+      centerLabel.style.transform = "translate(-50%, -50%) scale(1)";
+    }, 200);
   });
 
   path.addEventListener("mouseover", () => {
     path.style.transform = "scale(1.05)";
-    path.style.opacity = "0.9";
+    path.style.opacity = "0.95";
+    path.style.filter = "brightness(1.1)";
   });
 
   path.addEventListener("mouseout", () => {
     path.style.transform = "scale(1)";
     path.style.opacity = "1";
+    path.style.filter = "none";
   });
 
   svg.appendChild(path);
