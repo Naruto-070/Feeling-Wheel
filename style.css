@@ -2,28 +2,41 @@ body {
   margin: 0;
   padding: 0;
   font-family: 'Comic Sans MS', cursive, sans-serif;
-  background: linear-gradient(135deg, #ffe0f0, #fff0f5, #fce4ec);
+  background: linear-gradient(to bottom right, #fff0f5, #e0f7fa);
+  color: #333;
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 100vh;
-  overflow: hidden;
-  animation: fadeIn 1.2s ease-in-out;
+  justify-content: start;
+  min-height: 100vh;
+  animation: fadeIn 1s ease-in-out;
+  overflow-x: hidden;
 }
 
 h1 {
-  font-size: 2.5rem;
-  margin: 1.5rem;
+  font-size: 3rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
   color: #ff69b4;
-  text-shadow: 2px 2px 6px #ffccdd;
-  animation: popIn 1s ease;
+  text-shadow: 2px 2px 5px #ffccff;
+  animation: popUp 1s ease-in-out;
 }
 
 .wheel-container {
   position: relative;
   width: 600px;
   height: 600px;
-  animation: zoomIn 1.5s ease;
+  animation: scaleIn 1.5s ease-in-out;
+}
+
+#feeling-wheel {
+  display: block;
+  margin: 0 auto;
+  transition: transform 0.5s ease;
+}
+
+#feeling-wheel:hover {
+  transform: scale(1.01) rotate(1deg);
 }
 
 #center-label {
@@ -35,21 +48,19 @@ h1 {
   background-color: white;
   border-radius: 50%;
   border: 4px dashed #ffb6c1;
-  box-shadow: 0 0 20px rgba(255, 105, 180, 0.4);
   transform: translate(-50%, -50%);
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
+  font-size: 1.1rem;
   font-weight: bold;
-  font-size: 1rem;
   text-align: center;
-  transition: background-color 0.3s ease, transform 0.3s ease;
-  z-index: 10;
+  box-shadow: 0 6px 20px rgba(255, 182, 193, 0.6);
+  transition: background-color 0.4s ease, transform 0.3s ease;
 }
 
 #center-label:hover {
   transform: translate(-50%, -50%) scale(1.05);
-  background-color: #fff5fa;
 }
 
 @keyframes fadeIn {
@@ -57,13 +68,12 @@ h1 {
   to { opacity: 1; }
 }
 
-@keyframes popIn {
-  0% { transform: scale(0.7); opacity: 0; }
-  80% { transform: scale(1.1); }
-  100% { transform: scale(1); opacity: 1; }
+@keyframes popUp {
+  from { transform: scale(0.9); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
 }
 
-@keyframes zoomIn {
-  0% { transform: scale(0.8); opacity: 0; }
-  100% { transform: scale(1); opacity: 1; }
+@keyframes scaleIn {
+  from { transform: scale(0.8); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
 }
