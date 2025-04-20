@@ -15,7 +15,6 @@ function drawArc(cx, cy, r1, r2, startAngle, endAngle, color, label) {
   const [x2, y2] = polarToCartesian(cx, cy, r2, startAngle);
   const [x3, y3] = polarToCartesian(cx, cy, r2, endAngle);
   const [x4, y4] = polarToCartesian(cx, cy, r1, endAngle);
-
   const largeArc = endAngle - startAngle > Math.PI ? 1 : 0;
 
   const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
@@ -31,19 +30,23 @@ function drawArc(cx, cy, r1, r2, startAngle, endAngle, color, label) {
   path.setAttribute("stroke", "#fff");
   path.setAttribute("stroke-width", "1");
   path.style.cursor = "pointer";
-  path.style.transition = "transform 0.3s ease, opacity 0.3s ease";
+  path.style.transition = "transform 0.3s, opacity 0.3s";
+
   path.addEventListener("click", () => {
     centerLabel.innerText = label;
     centerLabel.style.backgroundColor = color;
   });
+
   path.addEventListener("mouseover", () => {
     path.style.transform = "scale(1.05)";
-    path.style.opacity = "0.9";
+    path.style.opacity = "0.85";
   });
+
   path.addEventListener("mouseout", () => {
     path.style.transform = "scale(1)";
     path.style.opacity = "1";
   });
+
   svg.appendChild(path);
 
   const midAngle = (startAngle + endAngle) / 2;
@@ -72,23 +75,20 @@ function drawWheel(data) {
 
     drawArc(cx, cy, 0, radiusSteps[0], startAngle, endCore, section.color, section.core);
 
-    const primaryTotal = section.children.length;
     let primaryStart = startAngle;
-
     section.children.forEach(primary => {
-      const primaryAngle = coreAngle / primaryTotal;
+      const primaryAngle = coreAngle / section.children.length;
       const primaryEnd = primaryStart + primaryAngle;
 
       drawArc(cx, cy, radiusSteps[0], radiusSteps[1], primaryStart, primaryEnd, section.color, primary.primary);
 
-      const secTotal = primary.children.length;
       let secStart = primaryStart;
-
       primary.children.forEach(sec => {
-        const secAngle = primaryAngle / secTotal;
+        const secAngle = primaryAngle / primary.children.length;
         const secEnd = secStart + secAngle;
 
         drawArc(cx, cy, radiusSteps[1], radiusSteps[2], secStart, secEnd, section.color, sec);
+
         secStart = secEnd;
       });
 
