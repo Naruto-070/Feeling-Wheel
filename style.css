@@ -64,6 +64,22 @@ h1 {
   transform: translate(-50%, -50%) scale(1.05);
 }
 
+/* Button styles for the center label */
+#center-label button {
+  background-color: #ff69b4;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 5px;
+  box-shadow: 0 6px 20px rgba(255, 182, 193, 0.6);
+}
+
+#center-label button:hover {
+  background-color: #ff1493;
+}
+
 @keyframes fadeIn {
   from { opacity: 0; }
   to { opacity: 1; }
