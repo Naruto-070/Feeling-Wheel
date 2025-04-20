@@ -9,7 +9,6 @@ function polarToCartesian(cx, cy, r, angle) {
     cy + r * Math.sin(angle)
   ];
 }
-
 function drawArc(cx, cy, r1, r2, startAngle, endAngle, color, label, isFinal = false) {
   const [x1, y1] = polarToCartesian(cx, cy, r1, startAngle);
   const [x2, y2] = polarToCartesian(cx, cy, r2, startAngle);
@@ -66,8 +65,12 @@ function drawArc(cx, cy, r1, r2, startAngle, endAngle, color, label, isFinal = f
   text.setAttribute("y", ty);
   text.setAttribute("text-anchor", "middle");
   text.setAttribute("alignment-baseline", "middle");
-  text.setAttribute("font-size", "9");
-  text.setAttribute("fill", "#333");
+
+  // 
+  text.setAttribute("font-size", "11");
+  text.setAttribute("font-weight", "bold");
+  text.setAttribute("fill", "#444");
+
   text.style.userSelect = "none";
   text.style.pointerEvents = "none";
   text.textContent = label;
@@ -109,7 +112,7 @@ function drawWheel(data) {
     startAngle = endCore;
   });
 
-  resetCenter(); // Reset center label content
+  resetCenter(); 
 }
 
 function sendEmail(feeling) {
