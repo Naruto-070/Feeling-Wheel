@@ -2,6 +2,7 @@ const svg = document.getElementById("feeling-wheel");
 const centerLabel = document.getElementById("center-label");
 const radiusSteps = [60, 130, 200];
 const cx = 300, cy = 300;
+let selectedEmotion = null; // Store selected emotion
 
 function polarToCartesian(cx, cy, r, angle) {
   return [
@@ -10,7 +11,7 @@ function polarToCartesian(cx, cy, r, angle) {
   ];
 }
 
-function drawArc(cx, cy, r1, r2, startAngle, endAngle, color, label) {
+function drawArc(cx, cy, r1, r2, startAngle, endAngle, color, label, isFinal = false) {
   const [x1, y1] = polarToCartesian(cx, cy, r1, startAngle);
   const [x2, y2] = polarToCartesian(cx, cy, r2, startAngle);
   const [x3, y3] = polarToCartesian(cx, cy, r2, endAngle);
@@ -33,8 +34,15 @@ function drawArc(cx, cy, r1, r2, startAngle, endAngle, color, label) {
   path.style.transition = "transform 0.3s, opacity 0.3s";
 
   path.addEventListener("click", () => {
-    centerLabel.innerText = label;
-    centerLabel.style.backgroundColor = color;
+    if (isFinal) {
+      // Final emotion selected, change the center label to a button
+      centerLabel.innerHTML = `<button onclick="sendEmail('${label}')">Send '${label}' Feeling</button>`;
+      centerLabel.style.backgroundColor = color;
+    } else {
+      // Core emotion selected, show message to choose further
+      centerLabel.innerText = "Heyo Love, choose further Mwaah <3";
+      centerLabel.style.backgroundColor = color;
+    }
   });
 
   path.addEventListener("mouseover", () => {
@@ -87,7 +95,7 @@ function drawWheel(data) {
         const secAngle = primaryAngle / primary.children.length;
         const secEnd = secStart + secAngle;
 
-        drawArc(cx, cy, radiusSteps[1], radiusSteps[2], secStart, secEnd, section.color, sec);
+        drawArc(cx, cy, radiusSteps[1], radiusSteps[2], secStart, secEnd, section.color, sec, true); // Mark this as final layer
 
         secStart = secEnd;
       });
@@ -97,6 +105,11 @@ function drawWheel(data) {
 
     startAngle = endCore;
   });
+}
+
+function sendEmail(feeling) {
+  const emailBody = `Kitty Divi is feeling ${feeling}`;
+  window.location.href = `mailto:shourya3123@gmail.com?subject=Feeling Wheel&body=${encodeURIComponent(emailBody)}`;
 }
 
 drawWheel(feelingWheelData);
