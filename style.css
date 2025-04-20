@@ -23,17 +23,16 @@ h1 {
 }
 
 .wheel-container {
-  position: relative; /* FIXED */
-  width: 600px;
-  height: 600px;
-  animation: scaleIn 1.5s ease-in-out;
+  width: 90vw;
+  height: 90vw;
+  max-width: 600px;
+  max-height: 600px;
+}
+#feeling-wheel {
+  width: 100%;
+  height: 100%;
 }
 
-#feeling-wheel {
-  display: block;
-  margin: 0 auto;
-  transition: transform 0.5s ease;
-}
 
 #feeling-wheel:hover {
   transform: scale(1.01) rotate(1deg);
