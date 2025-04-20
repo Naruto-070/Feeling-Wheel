@@ -1,18 +1,22 @@
 const svg = document.getElementById("feeling-wheel");
-const center = document.getElementById("center");
-const radiusSteps = [60, 120, 180]; // Inner to outer rings
+const centerLabel = document.getElementById("center-label");
+const radiusSteps = [60, 130, 200]; // Core, Primary, Secondary
+const cx = 300, cy = 300;
 
 function polarToCartesian(cx, cy, r, angle) {
-  return [cx + r * Math.cos(angle), cy + r * Math.sin(angle)];
+  return [
+    cx + r * Math.cos(angle),
+    cy + r * Math.sin(angle)
+  ];
 }
 
-function drawArc(cx, cy, r1, r2, start, end, color, label) {
-  const [x1, y1] = polarToCartesian(cx, cy, r1, start);
-  const [x2, y2] = polarToCartesian(cx, cy, r2, start);
-  const [x3, y3] = polarToCartesian(cx, cy, r2, end);
-  const [x4, y4] = polarToCartesian(cx, cy, r1, end);
+function drawArc(cx, cy, r1, r2, startAngle, endAngle, color, label) {
+  const [x1, y1] = polarToCartesian(cx, cy, r1, startAngle);
+  const [x2, y2] = polarToCartesian(cx, cy, r2, startAngle);
+  const [x3, y3] = polarToCartesian(cx, cy, r2, endAngle);
+  const [x4, y4] = polarToCartesian(cx, cy, r1, endAngle);
 
-  const largeArc = end - start > Math.PI ? 1 : 0;
+  const largeArc = endAngle - startAngle > Math.PI ? 1 : 0;
 
   const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
   path.setAttribute("d", `
@@ -25,53 +29,65 @@ function drawArc(cx, cy, r1, r2, start, end, color, label) {
   `);
   path.setAttribute("fill", color);
   path.setAttribute("stroke", "#fff");
-  path.setAttribute("stroke-width", 1);
+  path.setAttribute("stroke-width", "1");
   path.style.cursor = "pointer";
   path.addEventListener("click", () => {
-    center.textContent = label;
+    centerLabel.innerText = label;
   });
+
   svg.appendChild(path);
+
+  // Add label text
+  const midAngle = (startAngle + endAngle) / 2;
+  const [tx, ty] = polarToCartesian(cx, cy, (r1 + r2) / 2, midAngle);
+  const text = document.createElementNS("http://www.w3.org/2000/svg", "text");
+  text.setAttribute("x", tx);
+  text.setAttribute("y", ty);
+  text.setAttribute("text-anchor", "middle");
+  text.setAttribute("alignment-baseline", "middle");
+  text.setAttribute("font-size", "10");
+  text.setAttribute("fill", "#333");
+  text.textContent = label;
+  svg.appendChild(text);
 }
 
 function drawWheel(data) {
-  const cx = 250, cy = 250;
-  let angleOffset = 0;
+  svg.innerHTML = "";
+  let totalCore = data.length;
+  let startAngle = 0;
 
   data.forEach(section => {
-    const coreAngle = (2 * Math.PI) / data.length;
-    const endCore = angleOffset + coreAngle;
+    const coreAngle = (2 * Math.PI) / totalCore;
+    const endCore = startAngle + coreAngle;
 
-    drawArc(cx, cy, 0, radiusSteps[0], angleOffset, endCore, section.color, section.core);
+    drawArc(cx, cy, 0, radiusSteps[0], startAngle, endCore, section.color, section.core);
 
-    const primaryCount = section.children.length;
-    let primaryStart = angleOffset;
+    const primaryTotal = section.children.length;
+    let primaryStart = startAngle;
 
     section.children.forEach(primary => {
-      const primaryAngle = coreAngle / primaryCount;
+      const primaryAngle = coreAngle / primaryTotal;
       const primaryEnd = primaryStart + primaryAngle;
 
       drawArc(cx, cy, radiusSteps[0], radiusSteps[1], primaryStart, primaryEnd, section.color, primary.primary);
 
-      const secondaryCount = primary.children.length;
+      const secTotal = primary.children.length;
       let secStart = primaryStart;
 
-      primary.children.forEach(secondary => {
-        const secAngle = primaryAngle / secondaryCount;
+      primary.children.forEach(sec => {
+        const secAngle = primaryAngle / secTotal;
         const secEnd = secStart + secAngle;
 
-        drawArc(cx, cy, radiusSteps[1], radiusSteps[2], secStart, secEnd, section.color, secondary);
+        drawArc(cx, cy, radiusSteps[1], radiusSteps[2], secStart, secEnd, section.color, sec);
+
         secStart = secEnd;
       });
 
       primaryStart = primaryEnd;
     });
 
-    angleOffset = endCore;
+    startAngle = endCore;
   });
 }
-
-center.onclick = () => {
-  center.textContent = "Emotion";
-};
 
 drawWheel(feelingWheelData);
