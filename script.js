@@ -31,8 +31,20 @@ function drawArc(cx, cy, r1, r2, startAngle, endAngle, color, label) {
   path.setAttribute("stroke", "#fff");
   path.setAttribute("stroke-width", "1");
   path.style.cursor = "pointer";
+  path.style.transition = "transform 0.3s ease, opacity 0.3s ease";
   path.addEventListener("click", () => {
     centerLabel.innerText = label;
+    centerLabel.style.backgroundColor = color;
+  });
+
+  path.addEventListener("mouseover", () => {
+    path.style.transform = "scale(1.05)";
+    path.style.opacity = "0.9";
+  });
+
+  path.addEventListener("mouseout", () => {
+    path.style.transform = "scale(1)";
+    path.style.opacity = "1";
   });
 
   svg.appendChild(path);
@@ -47,6 +59,8 @@ function drawArc(cx, cy, r1, r2, startAngle, endAngle, color, label) {
   text.setAttribute("alignment-baseline", "middle");
   text.setAttribute("font-size", "10");
   text.setAttribute("fill", "#333");
+  text.style.userSelect = "none";
+  text.style.pointerEvents = "none";
   text.textContent = label;
   svg.appendChild(text);
 }
